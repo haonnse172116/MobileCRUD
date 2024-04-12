@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/prj/MobileCRUD/src/java/object/OrderDAO.java</file>
+            <file>file:/D:/prj/MobileCRUD/src/java/controller/ChangeController.java</file>
+            <file>file:/D:/prj/MobileCRUD/src/java/controller/DeleteController.java</file>
+            <file>file:/D:/prj/MobileCRUD/web/manager.jsp</file>
+            <file>file:/D:/prj/MobileCRUD/src/java/object/OrderDTO.java</file>
+            <file>file:/D:/prj/MobileCRUD/src/java/controller/SaveCartController.java</file>
+            <file>file:/D:/prj/MobileCRUD/src/java/controller/PriceSearchController.java</file>
+            <file>file:/D:/prj/MobileCRUD/web/mobileCart.jsp</file>
+            <file>file:/D:/prj/MobileCRUD/src/java/object/UserDTO.java</file>
+            <file>file:/D:/prj/MobileCRUD/src/java/controller/SearchController.java</file>
+            <file>file:/D:/prj/MobileCRUD/src/java/object/CartDTO.java</file>
+            <file>file:/D:/prj/MobileCRUD/src/java/controller/CreateController.java</file>
+            <file>file:/D:/prj/MobileCRUD/web/user.jsp</file>
+            <file>file:/D:/prj/MobileCRUD/src/java/controller/AddToCartController.java</file>
+            <file>file:/D:/prj/MobileCRUD/web/mobileShop.jsp</file>
+            <file>file:/D:/prj/MobileCRUD/src/java/object/MobileDAO.java</file>
+            <file>file:/D:/prj/MobileCRUD/src/java/object/MobileErr.java</file>
+            <file>file:/D:/prj/MobileCRUD/src/java/controller/RemoveController.java</file>
+            <file>file:/D:/prj/MobileCRUD/src/java/object/MobileDTO.java</file>
+            <file>file:/D:/prj/MobileCRUD/web/login.jsp</file>
+            <file>file:/D:/prj/MobileCRUD/src/java/controller/MainController.java</file>
+            <file>file:/D:/prj/MobileCRUD/src/java/object/UserDAO.java</file>
+            <file>file:/D:/prj/MobileCRUD/src/java/utils/DBUtils.java</file>
+        </group>
+    </open-files>
+</project-private>
