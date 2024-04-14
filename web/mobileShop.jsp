@@ -7,6 +7,8 @@
 <%@page import="object.UserDTO"%>
 <%@page import="object.MobileDTO"%>
 <%@page import="java.util.List"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,99 +16,85 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Shopping Page</title>
     </head>
-    
+
     <body>
-      
-        <%
-            UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
-            String minPrice = request.getParameter("minPrice");
-            String maxPrice = request.getParameter("maxPrice");
-            if (minPrice == null) {
-                minPrice = "";
-            }
-            if (maxPrice == null) {
-                maxPrice = "";
-            }
-        %>
+
+        <c:set var="loginUser" value="${sessionScope.LOGIN_USER}"/>
+        <c:set var="loginUser" value="${sessionScope.LOGIN_USER}" />
+        <c:set var="minPrice" value="${param.minPrice != null ? param.minPrice : (empty sessionScope.minPrice ? '' : sessionScope.minPrice)}" />
+        <c:set var="maxPrice" value="${param.maxPrice != null ? param.maxPrice : (empty sessionScope.maxPrice ? '' : sessionScope.maxPrice)}" />
+
         <h1>Welcome to Meimei's Mobile Store</h1>
-        <h3> User: <%=loginUser.getFullName()%></h3>
-        <form action="MainController">
+        <h3> User: ${loginUser.fullName}</h3>
+        <form action="MainController" method="POST">
             Min Price:
-            <input type="number" name="minPrice" value="<%= minPrice%>"/>
+            <input type="number" name="minPrice" value="${minPrice}"/>
             Max Price:
-            <input type="number" name="maxPrice" value="<%= maxPrice%>"/>
+            <input type="number" name="maxPrice" value="${maxPrice}"/>
             <input type="submit" value="PriceSearch" name="btAction"/>
         </form>
-        <%
-            List<MobileDTO> listMobile = (List) request.getAttribute("LIST_MOBILE");
+        <c:set var="listMobile" value="${requestScope.LIST_MOBILE}" />
 
-            if (listMobile != null) {
-                if (listMobile.size() > 0) {
-        %>
-
-    <table border="1">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Mobile ID</th>
-                <th>Mobile Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Year of production</th>
-                <th>Quantity</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% int count = 1;
-            for (MobileDTO mobile : listMobile) { %>
-            <tr>
-                <td><%= count++ %></td>
-                <td><%= mobile.getMobileId() %></td>
-                <td><%= mobile.getMobileName() %></td>
-                <td><%= mobile.getDescription() %></td>
-                <td><%= mobile.getPrice() %></td>
-                <td><%= mobile.getYearOfProduction() %></td>
-                <td><%= mobile.getQuantity() %></td>
-            </tr>
-            <% } %>
-        </tbody>
-    </table>
-<form action="MainController" method="POST">
-    <select name="cmbMobileName">
-        <%
-            for (MobileDTO mobile : listMobile) {
-        %>
-        <option value="<%= mobile.getMobileId() + "-" + mobile.getMobileName() + "-" + mobile.getPrice() %>"><%= mobile.getMobileName() %> - <%= mobile.getPrice() %> $</option>
-        <%
-            }
-        %>
-    </select>
-    <select name="cmbQuantity">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="50">50</option>
-    </select>
-    <input type="submit" name="btAction" value="Add"/>
-</form>
-
-    <%
-            }
-        }
-    %>
+        <c:if test="${not empty listMobile and fn:length(listMobile) > 0}">
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Mobile ID</th>
+                        <th>Mobile Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Year of production</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="mobile" items="${listMobile}" varStatus="count">
+                        <c:if test="${not mobile.notSale}">
+                            <tr>
+                                <td>${count.index + 1}</td>
+                                <td>${mobile.mobileId}</td>
+                                <td>${mobile.mobileName}</td>
+                                <td>${mobile.description}</td>
+                                <td>${mobile.price}</td>
+                                <td>${mobile.yearOfProduction}</td>
+                                <td>${mobile.quantity}</td>
+                            </tr>
+                        </c:if>
+                    </c:forEach>
+                </tbody>
+            </table>
+            <form action="MainController" method="POST">
+                <select name="cmbMobileName">
+                    <c:forEach var="mobile" items="${listMobile}">
+                        <c:if test="${not mobile.notSale}">
+                            <option value="${mobile.mobileId}-${mobile.mobileName}-${mobile.price}">${mobile.mobileName} - ${mobile.price} $</option>
+                        </c:if>
+                    </c:forEach>
+                </select>
+                <select name="cmbQuantity">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="50">50</option>
+                </select>
+                <input type="hidden" name="minPrice" value="${minPrice}">
+                <input type="hidden" name="maxPrice" value="${maxPrice}">
+                <input type="submit" name="btAction" value="Add"/>
+            </form>
+        </c:if>
         <form action="MainController" method="POST">
+            <input type="hidden" name="minPrice" value="${minPrice}">
+            <input type="hidden" name="maxPrice" value="${maxPrice}">
             <input type="submit" name="btAction" value="View Cart"/>
-    </form>
-  <%
-      String message = (String) request.getAttribute("MESSAGE");
-            if (message == null) {
-                message = "";
-            }
-        %>
-        <%= message %>
-        
-</body>
+        </form>
+        <c:set var="message" value="${empty requestScope.MESSAGE ? '' : requestScope.MESSAGE}"/>
+        <c:set var="minPrice" value="${empty sessionScope.minPrice ? '' : sessionScope.minPrice}"/>
+        <c:set var="maxPrice" value="${empty sessionScope.maxPrice ? '' : sessionScope.maxPrice}"/>
+        ${message}  
+
+    </body>
 </html>

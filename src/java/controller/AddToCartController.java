@@ -24,14 +24,14 @@ import object.MobileDTO;
 public class AddToCartController extends HttpServlet {
 
    private static final String ERROR="mobileShop.jsp";
-    private static final String SUCCESS="mobileShop.jsp";
+    private static final String SUCCESS="PriceSearchController";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
          String url= ERROR;
         try {
-            String cmbMobile= request.getParameter("cmbMobileName");
+            String cmbMobile = request.getParameter("cmbMobileName");            
             String tmp[]= cmbMobile.split("-");
             String mobileId= tmp[0];
             String mobileName= tmp[1];
@@ -53,7 +53,8 @@ public class AddToCartController extends HttpServlet {
         } catch (Exception e) {
             log("Error at AddToCartController: "+ e.toString());
         }finally{
-            request.getRequestDispatcher(url).forward(request, response);
+//            response.sendRedirect("PriceSearchController");
+request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

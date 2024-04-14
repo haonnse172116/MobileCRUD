@@ -6,6 +6,7 @@
 
 <%@page import="object.UserDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,31 +14,29 @@
         <title>User Page</title>
     </head>
     <body>
-        <%
-            UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
-            if (loginUser == null || 0 != loginUser.getRole()) {
-                response.sendRedirect("login.jsp");
-                return;
-            }
-        %>
-
+         <c:set var="loginUser" value="${sessionScope.LOGIN_USER}" />
+        <c:if test="${empty loginUser or loginUser.role != 0}">
+            <c:redirect url="login.jsp"/>
+        </c:if>
         <table>
             <tr>
                 <td>User ID:</td>
-                <td><%= loginUser.getUserId()%></td>
+                <td>${loginUser.userId}</td>
             </tr>
             <tr>
                 <td>Full Name:</td>
-                <td><%= loginUser.getFullName()%></td>
+                <td>${loginUser.fullName}</td>
             </tr>
             <tr>
                 <td>Password:</td>
-                <td><%= loginUser.getPassword()%></td>
+                <td>${loginUser.password}</td>
             </tr>
         </table>
         <form action="MainController" method="POST">
             <input type="submit" name="btAction" value="Logout"/>
-        </form>
-        <a href="mobileShop.jsp">Shopping</a></br>
+        </form><br/>
+        <form action="mobileShop.jsp" >
+            <input type="submit" value="Shopping">
+    </form>
     </body>
 </html>

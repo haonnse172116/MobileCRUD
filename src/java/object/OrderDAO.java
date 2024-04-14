@@ -23,7 +23,7 @@ public class OrderDAO {
     private static final String INSERT_ORDER = "INSERT INTO tbl_Order (UserID, Total) VALUES (?, ?)";
     private static final String INSERT_ORDER_ITEM = "INSERT INTO tbl_OrderItem (OrderID, MobileID, Quantity) VALUES (?, ?, ?)";
 
-    public boolean saveOrder(String userId, CartDTO cart, double total) throws ClassNotFoundException, SQLException {
+    public boolean saveOrder(String userId, CartDTO cart, int total) throws ClassNotFoundException, SQLException {
         boolean checkInsert = false;
         Connection conn = null;
         PreparedStatement orderPtm = null;

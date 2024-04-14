@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import object.MobileDAO;
 import object.MobileDTO;
 
@@ -38,17 +39,20 @@ public class PriceSearchController extends HttpServlet {
             if(maxPrice.trim().isEmpty()){
                 maxPrice = "1000";
             }
-            MobileDAO dao= new MobileDAO(); 
+            MobileDAO dao= new MobileDAO();
+            HttpSession session = request.getSession();
             List<MobileDTO> listMobile= dao.getListByMinAndMax(minPrice, maxPrice);
             if(listMobile.size()>0){
                 request.setAttribute("LIST_MOBILE", listMobile);
+                session.setAttribute("minPrice", minPrice);
+                session.setAttribute("maxPrice", maxPrice);
                 url= SUCCESS;
             }
             
         } catch (Exception e) {
             log("Error at SearchController:"+ e.toString());
         }finally{
-            request.getRequestDispatcher(url).forward(request, response);
+            request.getRequestDispatcher(url).forward(request, response);     
         }
     }
 

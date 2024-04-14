@@ -38,10 +38,11 @@ public class SaveCartController extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             CartDTO cart = (CartDTO) session.getAttribute("CART");
-            double total = (Double)session.getAttribute("total");
-            String userId = (String) session.getAttribute("userId");
+            String userId = (String) session.getAttribute("USER_ID");
+            double total = (Double)session.getAttribute("TOTAL");
+            int roundedTotal = (int)Math.round(total);
             if (cart != null && userId != null) {
-                boolean checkInsert = dao.saveOrder(userId, cart, total);
+                boolean checkInsert = dao.saveOrder(userId, cart, roundedTotal);
                 if (checkInsert) {
                     url = SUCCESS;
                     request.setAttribute("MESSAGE", "Cart saved successfully ");
