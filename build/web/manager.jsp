@@ -15,6 +15,57 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Manager Page</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+
+            h3 {
+                color: #333;
+            }
+
+            form {
+                margin-bottom: 20px;
+            }
+
+            input[type="submit"],
+            input[type="reset"],
+            input[type="checkbox"] {
+                padding: 8px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                cursor: pointer;
+                margin-right: 10px;
+            }
+
+            input[type="submit"]:hover,
+            input[type="reset"]:hover,
+            input[type="checkbox"]:hover {
+                background-color: #45a049;
+            }
+
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            th,
+            td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+
+            th {
+                background-color: #f2f2f2;
+            }
+
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+        </style>
     </head>
     <body>
         <c:set var="loginUser" value="${sessionScope.LOGIN_USER}"/>

@@ -16,6 +16,68 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Mobile Cart Page</title>
+         <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            padding: 8px;
+            margin: 5px 0;
+            width: calc(100% - 16px);
+            box-sizing: border-box; 
+        }
+
+        input[type="submit"],
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover,
+        button:hover {
+            background-color: #45a049;
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .total {
+            margin-top: 20px;
+        }
+
+    </style>
     </head>
     <body>
         <c:set var="loginUser" value="${sessionScope.LOGIN_USER}"/>
@@ -59,11 +121,12 @@
         </table>             
         <c:set var="roundedTotal" value="${Math.round(total)}"/>
         <fmt:formatNumber var="formattedTotal" value="${roundedTotal}" pattern="#,##0"/>
+        
         <h1>Total: ${formattedTotal}$</h1>
         <c:set var="TOTAL" value="${total}" scope="session"/>
         <form action="MainController" method="POST">
             <input type="submit" name="btAction" value="Save Cart"/>
-        </form>      
+        </form><br/>      
     </c:if>
     <c:set var="message" value="${empty requestScope.MESSAGE ? '' : requestScope.MESSAGE}"/>
     <c:set var="minPrice" value="${empty sessionScope.minPrice ? '' : sessionScope.minPrice}"/>
